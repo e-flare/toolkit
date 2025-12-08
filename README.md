@@ -67,7 +67,7 @@ If you find this work helpful for your research, please kindly consider citing o
 
 ## Updates
 
-- **[12/2025]** - The `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets are ready for download at the [HuggingFace Page]().
+- **[12/2025]** - The `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets are ready for download at the [HuggingFace Page](https://huggingface.co/datasets/E-Deflare/data).
 - **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
 
 
@@ -89,7 +89,7 @@ For details related to installation and environment setups, kindly refer to [INS
 
 
 ## :hotsprings: Data Preparation
-Kindly refer to our **HuggingFace Dataset** :hugs: page from [here](https://huggingface.co/datasets/Pi3DET/data) for more details.
+Kindly refer to our **HuggingFace Dataset** :hugs: page from [here](https://huggingface.co/datasets/E-Deflare/data) for more details.
 
 
 
