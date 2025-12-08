@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="docs/figures/camera-lens.gif" width="12.5%" align="center">
+  <img src="docs/figures/camera-lens.gif" width="12.8%" align="center">
 
   <h1 align="center">
     <strong>Learning to Remove Lens Flare in Event Camera</strong>
@@ -100,6 +100,65 @@ To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_
 
 ## :triangular_ruler: E-Deflare Benchmark
 
+### Data Curation, Training & Validation
+| <img src="docs/figures/framework.png" alt="framework" width="100%">|
+| :-: |
+
+
+### Summary of Datasets
+
+<table class="table is-bordered is-striped is-hoverable" style="width: 100%;">
+  <thead>
+    <tr>
+      <th style="vertical-align: middle; width: 25%;">Dataset</th>
+      <th style="vertical-align: middle; width: 15%;">Type</th>
+      <th style="vertical-align: middle; width: 20%;">Split</th>
+      <th style="vertical-align: middle; width: 15%;"># Samples</th>
+      <th style="vertical-align: middle; width: 25%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- E-Flare-2.7K -->
+    <tr>
+      <td rowspan="2" style="vertical-align: middle;"><b>E-Flare-2.7K</b></td>
+      <td rowspan="2" style="vertical-align: middle; color: #2E86AB;">Simulated</td>
+      <td style="vertical-align: middle;">Train</td>
+      <td style="vertical-align: middle;">2,545</td>
+      <td rowspan="2" style="vertical-align: middle; text-align: left;">Large-scale simulated training set. Each sample is a 20ms voxel grid</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: middle;">Test</td>
+      <td style="vertical-align: middle;">175</td>
+    </tr>
+    <!-- E-Flare-R -->
+    <tr>
+      <td style="vertical-align: middle;"><b>E-Flare-R</b></td>
+      <td style="vertical-align: middle; color: #A23B72;">Real-World</td>
+      <td style="vertical-align: middle;">Test</td>
+      <td style="vertical-align: middle;">150</td>
+      <td style="vertical-align: middle; text-align: left;">Real-world paired test set for sim-to-real evaluation</td>
+    </tr>
+    <!-- DSEC-Flare -->
+    <tr>
+      <td style="vertical-align: middle;"><b>DSEC-Flare</b></td>
+      <td style="vertical-align: middle; color: #A23B72;">Real-World</td>
+      <td style="vertical-align: middle;">—</td>
+      <td style="vertical-align: middle;">—</td>
+      <td style="vertical-align: middle; text-align: left;">Curated sequences from DSEC showcasing lens flare in public datasets</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+### Qualitative Results on E-Flare-2.7K
+| <img src="docs/figures/e-flare2.7k.png" alt="e-flare2.7k" width="100%">|
+| :-: |
+
+
+### Qualitative Results on E-Flare-R
+| <img src="docs/figures/e-flare-r.png" alt="e-flare-r" width="100%">|
+| :-: |
 
 
 
@@ -114,6 +173,9 @@ To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_
 ## License
 This work is under the <a rel="license" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>, while some specific implementations in this codebase might be under other licenses. Kindly refer to [LICENSE.md](docs/LICENSE.md) for a more careful check, if you are using our code for commercial matters.
 
+
+| <img src="docs/figures/affiliations.png" alt="affiliations" width="100%">|
+| :-: |
 
 
 ## Acknowledgements
