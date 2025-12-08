@@ -28,7 +28,7 @@
     <a href="https://e-flare.github.io/" target='_blank'>
       <img src="https://img.shields.io/badge/Project-%F0%9F%94%97-blue">
     </a>&nbsp;
-    <a href="https://huggingface.co/datasets/e-flare/data" target='_blank'>
+    <a href="https://huggingface.co/datasets/E-Deflare/data" target='_blank'>
       <img src="https://img.shields.io/badge/Dataset-%F0%9F%94%97-green">
     </a>&nbsp;
     <a href="" target='_blank'>
@@ -151,9 +151,203 @@ To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_
 
 
 
+### Experiments on E-Flare-2.7K
+<table>
+<thead>
+  <tr>
+    <th style="vertical-align: middle;">Method</th>
+    <th style="vertical-align: middle;">Chamfer↓</th>
+    <th style="vertical-align: middle;">Gaussian↓</th>
+    <th style="vertical-align: middle;">MSE↓</th>
+    <th style="vertical-align: middle;">PMSE 2↓</th>
+    <th style="vertical-align: middle;">PMSE 4↓</th>
+    <th style="vertical-align: middle;">R-F1↑</th>
+    <th style="vertical-align: middle;">T-F1↑</th>
+    <th style="vertical-align: middle;">TP-F1↑</th>
+  </tr>
+</thead>
+<tbody>
+  <tr style="background-color: #f5f5f5;">
+    <td><span style="color: gray;">● Raw Input</span></td>
+    <td style="color: gray;">1.3555</td>
+    <td style="color: gray;">0.5222</td>
+    <td style="color: gray;">0.8315</td>
+    <td style="color: gray;">0.3666</td>
+    <td style="color: gray;">0.3430</td>
+    <td style="color: gray;">0.5138</td>
+    <td style="color: gray;">0.6303</td>
+    <td style="color: gray;">0.6939</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● EFR</span></td>
+    <td>1.3237</td>
+    <td>0.5439</td>
+    <td>0.5357</td>
+    <td>0.2019</td>
+    <td>0.1755</td>
+    <td>0.1616</td>
+    <td>0.3572</td>
+    <td>0.4811</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● PFD-A</span></td>
+    <td>1.3958</td>
+    <td>0.5397</td>
+    <td>0.8357</td>
+    <td>0.3637</td>
+    <td>0.3392</td>
+    <td>0.4383</td>
+    <td style="background-color: #fae0e3;">0.5496</td>
+    <td>0.6125</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● PFD-B</span></td>
+    <td style="background-color: #fae0e3;">1.2496</td>
+    <td style="background-color: #fae0e3;">0.4613</td>
+    <td style="background-color: #fae0e3;">0.2851</td>
+    <td>0.1159</td>
+    <td>0.1021</td>
+    <td style="background-color: #fae0e3;">0.4460</td>
+    <td>0.5155</td>
+    <td>0.5727</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● Voxel Transform</span></td>
+    <td>1.2923</td>
+    <td>0.5576</td>
+    <td>0.3495</td>
+    <td style="background-color: #fae0e3;">0.1037</td>
+    <td style="background-color: #fae0e3;">0.0829</td>
+    <td>0.2177</td>
+    <td>0.5444</td>
+    <td style="background-color: #fae0e3;">0.6318</td>
+  </tr>
+  <tr style="border-top: 2px solid #333;">
+    <td><b><span style="color: #00B48B;">● E-DeflareNet (Ours)</span></b></td>
+    <td style="background-color: #e5f0e6;"><b>0.4477</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.2646</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.1269</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.0487</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.0435</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.7071</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.7627</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.7794</b></td>
+  </tr>
+  <tr style="background-color: #f9f9f9;">
+    <td><i>Improvement (%)</i></td>
+    <td><i>64.2%↑</i></td>
+    <td><i>42.6%↑</i></td>
+    <td><i>55.5%↑</i></td>
+    <td><i>53.0%↑</i></td>
+    <td><i>47.5%↑</i></td>
+    <td><i>58.5%↑</i></td>
+    <td><i>38.8%↑</i></td>
+    <td><i>23.4%↑</i></td>
+  </tr>
+</tbody>
+</table>
+
+
 ### Qualitative Results on E-Flare-2.7K
 | <img src="docs/figures/e-flare2.7k.png" alt="e-flare2.7k" width="100%">|
 | :-: |
+
+
+### Experiments on E-Flare-R
+<table>
+<thead>
+  <tr>
+    <th style="vertical-align: middle;">Method</th>
+    <th style="vertical-align: middle;">Chamfer↓</th>
+    <th style="vertical-align: middle;">Gaussian↓</th>
+    <th style="vertical-align: middle;">MSE↓</th>
+    <th style="vertical-align: middle;">PMSE 2↓</th>
+    <th style="vertical-align: middle;">PMSE 4↓</th>
+    <th style="vertical-align: middle;">R-F1↑</th>
+    <th style="vertical-align: middle;">T-F1↑</th>
+    <th style="vertical-align: middle;">TP-F1↑</th>
+  </tr>
+</thead>
+<tbody>
+  <tr style="background-color: #f5f5f5;">
+    <td><span style="color: gray;">● Raw Input</span></td>
+    <td style="color: gray;">1.7855</td>
+    <td style="color: gray;">0.7170</td>
+    <td style="color: gray;">0.8158</td>
+    <td style="color: gray;">0.3431</td>
+    <td style="color: gray;">0.3266</td>
+    <td style="color: gray;">0.2299</td>
+    <td style="color: gray;">0.2915</td>
+    <td style="color: gray;">0.3093</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● EFR</span></td>
+    <td>1.8191</td>
+    <td>0.7266</td>
+    <td>0.3388</td>
+    <td>0.1403</td>
+    <td>0.1330</td>
+    <td>0.0839</td>
+    <td>0.1807</td>
+    <td>0.2372</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● PFD-A</span></td>
+    <td style="background-color: #fae0e3;">1.7642</td>
+    <td style="background-color: #fae0e3;">0.7067</td>
+    <td>0.7924</td>
+    <td>0.3341</td>
+    <td>0.3182</td>
+    <td style="background-color: #fae0e3;">0.2386</td>
+    <td style="background-color: #fae0e3;">0.3081</td>
+    <td style="background-color: #fae0e3;">0.3283</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● PFD-B</span></td>
+    <td>2.0838</td>
+    <td>0.8504</td>
+    <td style="background-color: #fae0e3;">0.2759</td>
+    <td>0.1121</td>
+    <td>0.1049</td>
+    <td>0.0300</td>
+    <td>0.0717</td>
+    <td>0.0880</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● Voxel Transform</span></td>
+    <td>1.9535</td>
+    <td>0.8167</td>
+    <td>0.3140</td>
+    <td style="background-color: #fae0e3;">0.0964</td>
+    <td style="background-color: #fae0e3;">0.0836</td>
+    <td>0.1036</td>
+    <td>0.2729</td>
+    <td>0.3255</td>
+  </tr>
+  <tr style="border-top: 2px solid #333;">
+    <td><b><span style="color: #00B48B;">● E-DeflareNet (Ours)</span></b></td>
+    <td style="background-color: #e5f0e6;"><b>1.1368</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.4651</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.1741</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.0690</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.0644</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.3498</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.3386</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.3011</b></td>
+  </tr>
+  <tr style="background-color: #f9f9f9;">
+    <td><i>Improvement (%)</i></td>
+    <td><i>35.6%↑</i></td>
+    <td><i>34.2%↑</i></td>
+    <td><i>36.9%↑</i></td>
+    <td><i>28.4%↑</i></td>
+    <td><i>23.0%↑</i></td>
+    <td><i>46.6%↑</i></td>
+    <td><i>9.9%↑</i></td>
+    <td><i>-8.3%↓</i></td>
+  </tr>
+</tbody>
+</table>
 
 
 ### Qualitative Results on E-Flare-R
@@ -174,10 +368,10 @@ To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_
 This work is under the <a rel="license" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>, while some specific implementations in this codebase might be under other licenses. Kindly refer to [LICENSE.md](docs/LICENSE.md) for a more careful check, if you are using our code for commercial matters.
 
 
-| <img src="docs/figures/affiliations.png" alt="affiliations" width="100%">|
-| :-: |
-
 
 ## Acknowledgements
 This work is under the programme [DesCartes](http://descartes.cnrsatcreate.cnrs.fr/) and is supported by the National Research Foundation, Prime Minister's Office, Singapore, under its Campus for Research Excellence and Technological Enterprise (CREATE) programme. This work is also supported by the [Apple Scholars in AI/ML Ph.D. Fellowship](https://machinelearning.apple.com/updates/apple-scholars-aiml-2025) program.
 
+
+| <img src="docs/figures/affiliations.png" alt="affiliations" width="100%">|
+| :-: |
