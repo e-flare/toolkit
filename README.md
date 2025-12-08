@@ -35,10 +35,12 @@
       <img src="https://visitor-badge.laobi.icu/badge?page_id=e-flare.toolkit">
     </a>
   </p>
+</p>
 
 
 | <img src=".docs/figures/teaser.png" alt="Teaser" width="100%"> |
 | :-: |
+
 
 Event cameras have the potential to revolutionize vision systems with their high temporal resolution and dynamic range, yet they remain susceptible to lens flare, a fundamental optical artifact that causes severe degradation. In event streams, this optical artifact forms a complex, spatio-temporal distortion that has been largely overlooked.
 
