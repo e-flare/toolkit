@@ -2,10 +2,10 @@
 
 
 <p align="center">
-  <img src=".docs/figures/camera-lens.gif" width="12.5%" align="center">
+  <img src="docs/figures/camera-lens.gif" width="12.5%" align="center">
 
   <h1 align="center">
-    <strong>Learning to Remove Lens Flare in Event Camera
+    <strong>Learning to Remove Lens Flare in Event Camera</strong>
   </h1>
 
   <p align="center">
@@ -25,7 +25,7 @@
     <a href="" target='_blank'>
       <img src="https://img.shields.io/badge/Paper-%F0%9F%93%96-darkred">
     </a>&nbsp;
-    <a href="http://e-flare.github.io/" target='_blank'>
+    <a href="https://e-flare.github.io/" target='_blank'>
       <img src="https://img.shields.io/badge/Project-%F0%9F%94%97-blue">
     </a>&nbsp;
     <a href="https://huggingface.co/datasets/e-flare/data" target='_blank'>
@@ -38,7 +38,7 @@
 </p>
 
 
-| <img src=".docs/figures/teaser.png" alt="Teaser" width="100%"> |
+| <img src="docs/figures/teaser.png" alt="Teaser" width="100%"> |
 | :-: |
 
 
@@ -46,10 +46,11 @@ Event cameras have the potential to revolutionize vision systems with their high
 
 We present the **first** systematic framework for removing lens flare from event camera data. 
 - We first establish the theoretical foundation by deriving a physics-grounded forward model of the non-linear suppression mechanism.
-- This insight enables the creation of the E-Deflare Benchmark, a comprehensive resource featuring a large-scale simulated training set, E-Flare-2.7K, and the first-ever paired real-world test set, E-Flare-R, captured by our novel optical system.
-- Empowered by this benchmark, we design E-DeflareNet, which achieves state-of-the-art restoration performance.
+- This insight enables the creation of the `E-Deflare` benchmark, a comprehensive resource featuring a large-scale simulated training set, `E-Flare-2.7K`, and the first-ever paired real-world test set, `E-Flare-R`, captured by our novel optical system.
+- Empowered by this benchmark, we design `E-DeflareNet`, which achieves state-of-the-art restoration performance.
 
 Extensive experiments validate our approach and demonstrate clear benefits for downstream tasks.
+
 
 ### :books: Citation
 If you find this work helpful for your research, please kindly consider citing our papers:
@@ -63,4 +64,9 @@ If you find this work helpful for your research, please kindly consider citing o
 }
 ```
 
+
+
+## Updates
+
+- **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
 
