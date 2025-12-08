@@ -53,7 +53,7 @@ Extensive experiments validate our approach and demonstrate clear benefits for d
 
 
 ### :books: Citation
-If you find this work helpful for your research, please kindly consider citing our papers:
+If you find this work helpful for your research, please kindly consider citing our paper:
 
 ```bibtex
 @article{han2025e-deflare,
