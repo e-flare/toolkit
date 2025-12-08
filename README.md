@@ -65,8 +65,57 @@ If you find this work helpful for your research, please kindly consider citing o
 ```
 
 
-
 ## Updates
 
+- **[12/2025]** - The `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets are ready for download at the [HuggingFace Page]().
 - **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
+
+
+
+## Outline
+- [Installation](#gear-installation)
+- [Data Preparation](#hotsprings-data-preparation)
+- [Getting Started](#rocket-getting-started)
+- [E-Deflare Benchmark](#triangular_ruler-e-deflare-benchmark)
+- [TODO List](#memo-todo-list)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+
+
+
+## :gear: Installation
+For details related to installation and environment setups, kindly refer to [INSTALL.md](docs/INSTALL.md).
+
+
+
+## :hotsprings: Data Preparation
+Kindly refer to our **HuggingFace Dataset** :hugs: page from [here](https://huggingface.co/datasets/Pi3DET/data) for more details.
+
+
+
+## :rocket: Getting Started
+To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_STARTED.md).
+
+
+
+## :triangular_ruler: E-Deflare Benchmark
+
+
+
+
+## :memo: TODO List
+- [x] Initial release. 🚀
+- [ ] Release of the `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets.
+- [ ] Release of the E-DeflareNet model.
+- [ ] . . .
+
+
+
+## License
+This work is under the <a rel="license" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>, while some specific implementations in this codebase might be under other licenses. Kindly refer to [LICENSE.md](docs/LICENSE.md) for a more careful check, if you are using our code for commercial matters.
+
+
+
+## Acknowledgements
+This work is under the programme [DesCartes](http://descartes.cnrsatcreate.cnrs.fr/) and is supported by the National Research Foundation, Prime Minister's Office, Singapore, under its Campus for Research Excellence and Technological Enterprise (CREATE) programme. This work is also supported by the [Apple Scholars in AI/ML Ph.D. Fellowship](https://machinelearning.apple.com/updates/apple-scholars-aiml-2025) program.
 
