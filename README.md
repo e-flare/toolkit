@@ -22,7 +22,7 @@
   </p>
 
   <p align="center">
-    <a href="" target='_blank'>
+    <a href="https://arxiv.org/abs/2512.09016" target='_blank'>
       <img src="https://img.shields.io/badge/Paper-%F0%9F%93%96-darkred">
     </a>&nbsp;
     <a href="https://e-flare.github.io/" target='_blank'>
@@ -59,7 +59,7 @@ If you find this work helpful for your research, please kindly consider citing o
 @article{han2025e-deflare,
     title   = {Learning to Remove Lens Flare in Event Camera},
     author  = {Haiqian Han and Lingdong Kong and Jianing Li and Ao Liang and Chengtao Zhu and Jiacheng Lyu and Lai Xing Ng and Xiangyang Ji and Wei Tsang Ooi and Benoit R. Cottereau},
-    journal = {arXiv preprint arXiv:2512.xxxxx}
+    journal = {arXiv preprint arXiv:2512.09016}
     year    = {2025}
 }
 ```
