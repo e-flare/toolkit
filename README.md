@@ -67,7 +67,7 @@ If you find this work helpful for your research, please kindly consider citing o
 
 ## Updates
 
-- **[12/2025]** - The `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets are ready for download at the [HuggingFace Page](https://huggingface.co/datasets/E-Deflare/data).
+- **[12/2025]** - The `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets are ready for download at [HuggingFace Dataset](https://huggingface.co/datasets/E-Deflare/data).
 - **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
 
 
