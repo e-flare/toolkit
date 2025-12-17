@@ -1,0 +1,56 @@
+# Inference Configuration for Event-Voxel DEFLARE
+# Used for batch processing H5 event files without ground truth
+# Updated for local data_simu paths
+
+# Model configuration (must match trained model exactly)
+model:
+  name: TrueResidualUNet3D   # True residual learning (match training config)
+  backbone: ResidualUNet3D   # Backbone network type
+
+  # Architecture parameters (MUST match training config exactly)
+  in_channels: 1
+  out_channels: 1
+  f_maps: [32, 64, 128, 256] # Current config: 4 levels, 7.07M parameters (match training)
+  num_levels: 4              # Max depth 4 levels
+  layer_order: gcr           # Group normalization + Conv + ReLU
+  num_groups: 8              # GroupNorm group count
+  conv_padding: 1            # Convolution padding
+  dropout_prob: 0.1          # Dropout probability
+  
+  # Path to trained model checkpoint  
+  path: checkpoints/event_voxel_deflare/checkpoint_epoch_0027_iter_077500.pth
+
+# Inference-specific configuration
+inference:
+  # Input/Output directories (default paths, can be overridden by command line)
+  input_dir: "DSEC_data/input"   # Default input directory
+  output_dir: "DSEC_data/output" # Default output directory
+  
+  # Data processing parameters (must match training exactly)
+  sensor_size: [480, 640]       # Sensor resolution (H, W)
+  segment_duration_us: 20000    # 20ms per segment  
+  num_bins: 8                   # 8 temporal bins per segment
+  num_segments: 5               # 5 segments per 100ms input file
+  
+  # Device configuration
+  device: cuda                  # Use GPU if available
+  
+  # Processing parameters
+  batch_size: 1                 # Process segments individually
+
+# Debug visualization (controlled by --debug flag)
+debug:
+  enabled: false               # Controlled by command line --debug flag
+  output_dir: debug_output     # Directory for debug visualizations
+  max_segments_to_visualize: 3 # Max segments per file to visualize
+  
+# Device configuration
+device: cuda                    # Use GPU for inference
+
+# Logging
+logger:
+  name: TensorBoardLogger
+  log_dir: logs/inference
+
+# Random seed for reproducibility
+manual_seed: 42

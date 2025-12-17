@@ -1,0 +1,216 @@
+# ===================================================================
+#      Configuration File for EventMamba-FX (TBPTT Architecture)
+# ===================================================================
+#
+# 🎯 TBPTT (Truncated Backpropagation Through Time) Architecture:
+#
+# 
+#
+# ==================================================================
+
+run:
+  mode: two_step_generation
+  experiment_name: event_denoising_mamba_v2_decoupled
+
+generation:
+  num_train_sequences: 2000
+  num_val_sequences: 50
+  num_test_sequences: 10
+
+  test_mode_seed: 42
+  test_flare_position_mode: upper
+
+  debug_sequences: 3
+  debug_subdivisions: [0.5, 1, 2, 4]
+
+
+  output_paths:
+    flare_events: "output/data/flare_events"
+    light_source_events: "output/data/light_source_events"
+    background_with_light_events: "output/data/background_with_light_events"
+    full_scene_events: "output/data/full_scene_events"
+    debug_output: "output/debug"
+
+  test_output_paths:
+    flare_events: "output/test/flare_events"
+    light_source_events: "output/test/light_source_events"
+    background_with_light_events: "output/test/background_with_light_events"
+    full_scene_events: "output/test/full_scene_events"
+    background_only_events: "output/test/background_only_events"
+    debug_output: "output/test/debug"
+
+  debug_paths:
+    flare_generation: "output/debug/flare_generation"
+    light_source_generation: "output/debug/light_source_generation"
+    event_composition: "output/debug/event_composition"
+
+  test_debug_paths:
+    flare_generation: "output/test/debug/flare_generation"
+    light_source_generation: "output/test/debug/light_source_generation"
+    event_composition: "output/test/debug/event_composition"
+  
+data:
+  dsec_path: "data/bg_events"
+  
+  # Flare7K/Scattering_Flare/Scattering_Flare and  Flare-R/Compound_Flare
+  flare7k_path: "/path/to/data/physical_deflare/Datasets/Flare7Kpp/Flare7Kpp"
+  
+  event_simulator:
+    type: "dvs_voltmeter"
+    
+    dvs_voltmeter:
+      simulator_path: "/path/to/data/event_flick_flare/main/simulator/DVS-Voltmeter-main"
+      timeout_sec: 60
+      
+      parameters:
+        # 
+        #
+        dvs346_k: [5.265, 20, 0.0001, 1e-7, 5e-9, 0.00001]
+        
+        dvs240_k: [4.424, 23, 0.0002, 1e-7, 5e-8, 0.00001]  # 0.000094 * 47065 = 4.424
+      
+    v2ce:
+      model_path: "/path/to/data/event_flick_flare/main/simulator/V2CE-Toolbox-master/weights/v2ce_3d.pt"
+      toolbox_path: "/path/to/data/event_flick_flare/main/simulator/V2CE-Toolbox-master"
+      seq_len: 16
+      infer_type: "center"          # "center" or "pano"
+      batch_size: 1
+      height: 260
+      width: 346
+      
+      base_fps: 200
+      max_fps: 1600
+      min_samples_per_cycle: 8
+      fps_scale_factor: 1.5
+      
+      ceil: 10
+      upper_bound_percentile: 98
+    
+    iebcs:
+      simulator_path: "/path/to/data/event_flick_flare/main/simulator/IEBCS-main"
+      timeout_sec: 60
+      
+      sensor_parameters:
+        th_pos: 0.4
+        th_neg: 0.4
+        th_noise: 0.01
+        latency: 100
+        tau: 40
+        jitter: 10
+        bgnp: 0.1
+        bgnn: 0.01
+        refractory: 100
+        dt: 500
+        
+      frame_generation:
+        min_samples_per_cycle: 12
+        max_fps: 600
+        base_fps: 300
+        
+      debug_visualization:
+        enable_multi_timewindow: true
+        time_window_scales: [0.5, 1, 2, 4]
+        temporal_subdivisions: 5
+        
+      noise_model:
+        enable_measured_noise: false
+        noise_pos_file: "data/noise_pos_161lux.npy"
+        noise_neg_file: "data/noise_neg_161lux.npy"
+  
+  randomized_training:
+    background_duration_range: [0.05, 0.1]
+    
+    
+    
+  flare_synthesis:
+    realistic_frequencies:
+      power_50hz: 100.0
+      power_60hz: 120.0
+      japan_east: 100.0
+      japan_west: 120.0
+    
+    frequency_variation: 20.0
+    
+    min_samples_per_cycle: 48
+    max_fps: 6000
+    
+    flicker_curves: ["sine", "square", "triangle", "exponential"]
+    position_random: true
+    intensity_scale: [0.8, 1.2]
+    
+    duration_range: [0.07, 0.095]
+    
+    min_intensity_baseline: [0.0, 0.7]
+    max_intensity: 1.0
+    
+  
+  time_window_us: 1000000
+  
+  resolution_h: 480
+  resolution_w: 640
+
+  sequence_length: 64
+  num_workers: 0
+  max_samples_debug: 4
+
+model:
+  input_feature_dim: 4     
+  
+  
+  d_model: 512
+  d_state: 64
+  d_conv: 5
+  expand: 4
+  n_layers: 12
+
+feature_extractor:
+  pfd_time_window: 25000      # Time window for Mf calculation (25ms in µs)
+  pfd_neighborhood_size: 3    # Neighborhood size for PFD features (1=1x1, 3=3x3, 5=5x5)
+  
+  coarse_time_window: 2000    # (δtc, in µs)
+  coarse_support_threshold: 1 # (μ)
+  coarse_neighborhood_size: 3 # (n x n)
+  fine_time_window: 30000     # (δtf, in µs)
+  fine_neighborhood_size: 3   # (n x n)
+
+training:
+  epochs: 1
+  learning_rate: 0.0005
+  checkpoint_dir: "./checkpoints"
+  
+  chunk_size: 8192
+  
+  num_long_sequences_per_epoch: 1
+  
+  validate_every_n_steps: 5000              
+  save_every_n_steps: 5000                  
+
+composition:
+  merge_method: "physics_full"
+  generate_both_methods: true
+  
+  physics_params:
+    background_event_weight: 0.2
+    light_source_event_weight: 1.0
+    flare_intensity_multiplier: 1.0
+    temporal_jitter_us: 10
+    epsilon: 1e-9
+    stochastic_strength: 0.1
+  
+  physics2_params:
+    num_temporal_segments: 10
+    background_event_weight: 0.2
+    light_source_event_weight: 1.0
+    flare_intensity_multiplier: 1.0
+    temporal_jitter_us: 10
+    epsilon: 1e-9
+    stochastic_strength: 0.1
+    
+    adaptive_segmentation: false
+    segment_overlap_ratio: 0.0
+    min_events_per_segment: 5
+
+evaluation:
+  checkpoint_path: "./checkpoints/best_model.pth"
+  
+  num_long_sequences_per_epoch: 50

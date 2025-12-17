@@ -1,0 +1,400 @@
+<p align="right">English | <a href="./README_CN.md">简体中文</a></p>  
+
+
+<p align="center">
+  <img src="docs/figures/camera-lens.gif" width="12.8%" align="center">
+
+  <h1 align="center">
+    <strong>Learning to Remove Lens Flare in Event Camera</strong>
+  </h1>
+
+  <p align="center">
+    <a href="https://openreview.net/profile?id=~Haiqian_Han1" target="_blank"><strong>Haiqian Han</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://ldkong.com/" target="_blank"><strong>Lingdong Kong</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://jianing-li.github.io/" target="_blank"><strong>Jianing Li</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://alanliangc.github.io/" target="_blank"><strong>Ao Liang</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://openreview.net/profile?id=~Chengtao_Zhu1" target="_blank"><strong>Chengtao Zhu</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://openreview.net/profile?id=~Jiacheng_Lyu1" target="_blank"><strong>Jiacheng Lyu</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://ipal.cnrs.fr/lai-xing-ng/" target="_blank"><strong>Lai Xing Ng</strong></a><br>   
+    <a href="https://www.au.tsinghua.edu.cn/info/1080/3178.htm" target="_blank"><strong>Xiangyang Ji</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://www.comp.nus.edu.sg/cs/people/ooiwt/" target="_blank"><strong>Wei Tsang Ooi</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://ipal.cnrs.fr/benoit-cottereau-personal-page/" target="_blank"><strong>Benoit R. Cottereau</strong></a>    
+  </p>
+
+  <p align="center">
+    <a href="https://arxiv.org/abs/2512.09016" target='_blank'>
+      <img src="https://img.shields.io/badge/Paper-%F0%9F%93%96-darkred">
+    </a>&nbsp;
+    <a href="https://e-flare.github.io/" target='_blank'>
+      <img src="https://img.shields.io/badge/Project-%F0%9F%94%97-blue">
+    </a>&nbsp;
+    <a href="https://huggingface.co/datasets/E-Deflare/data" target='_blank'>
+      <img src="https://img.shields.io/badge/Dataset-%F0%9F%94%97-green">
+    </a>&nbsp;
+    <a href="" target='_blank'>
+      <img src="https://visitor-badge.laobi.icu/badge?page_id=e-flare.toolkit">
+    </a>
+  </p>
+</p>
+
+
+| <img src="docs/figures/teaser.png" alt="Teaser" width="100%"> |
+| :-: |
+
+
+Event cameras have the potential to revolutionize vision systems with their high temporal resolution and dynamic range, yet they remain susceptible to lens flare, a fundamental optical artifact that causes severe degradation. In event streams, this optical artifact forms a complex, spatio-temporal distortion that has been largely overlooked.
+
+We present the **first** systematic framework for removing lens flare from event camera data. 
+- We first establish the theoretical foundation by deriving a physics-grounded forward model of the non-linear suppression mechanism.
+- This insight enables the creation of the `E-Deflare` benchmark, a comprehensive resource featuring a large-scale simulated training set, `E-Flare-2.7K`, and the first-ever paired real-world test set, `E-Flare-R`, captured by our novel optical system.
+- Empowered by this benchmark, we design `E-DeflareNet`, which achieves state-of-the-art restoration performance.
+
+Extensive experiments validate our approach and demonstrate clear benefits for downstream tasks.
+
+
+### :books: Citation
+If you find this work helpful for your research, please kindly consider citing our paper:
+
+```bibtex
+@article{han2025e-deflare,
+    title   = {Learning to Remove Lens Flare in Event Camera},
+    author  = {Haiqian Han and Lingdong Kong and Jianing Li and Ao Liang and Chengtao Zhu and Jiacheng Lyu and Lai Xing Ng and Xiangyang Ji and Wei Tsang Ooi and Benoit R. Cottereau},
+    journal = {arXiv preprint arXiv:2512.09016}
+    year    = {2025}
+}
+```
+
+
+## Updates
+
+- **[12/2025]** - E-DeflareNet pretrained model weights are now available for download. :weight_lifting:
+- **[12/2025]** - The `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets are ready for download at [HuggingFace Dataset](https://huggingface.co/datasets/E-Deflare/data).
+- **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
+
+
+
+## Outline
+- [Installation](#gear-installation)
+- [Data Preparation](#hotsprings-data-preparation)
+- [Pretrained Models](#floppy_disk-pretrained-models)
+- [Getting Started](#rocket-getting-started)
+- [E-Deflare Benchmark](#triangular_ruler-e-deflare-benchmark)
+- [TODO List](#memo-todo-list)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+
+
+
+## :gear: Installation
+For details related to installation and environment setups, kindly refer to [INSTALL.md](docs/INSTALL.md).
+
+
+
+## :hotsprings: Data Preparation
+Kindly refer to our **HuggingFace Dataset** :hugs: page from [here](https://huggingface.co/datasets/E-Deflare/data) for more details.
+
+
+
+## :floppy_disk: Pretrained Models
+
+We provide pretrained E-DeflareNet model weights for inference and evaluation:
+
+### Download Links
+
+| Model | Training Dataset | Checkpoint | Download |
+|-------|-----------------|------------|----------|
+| **E-DeflareNet** | E-Flare-2.7K (physics_noRandom_noTen) | `checkpoint.pth` | [Baidu Netdisk](https://pan.baidu.com/s/1MG9SG3ZMjRWDALSC5f43hg?pwd=ejsj) (Code: `ejsj`) \| [HuggingFace](https://huggingface.co/datasets/E-Deflare/data/tree/main) :hugs: |
+
+### Model Details
+
+- **Architecture**: TrueResidualUNet3D with ResidualUNet3D backbone
+- **Parameters**: ~7M (f_maps: [32, 64, 128, 256], 4 levels)
+- **Input/Output**: Voxel grid (8 temporal bins, 480×640 resolution)
+- **Training**: 31 epochs, 40,000 iterations on physics-based simulated flare dataset
+
+For usage instructions, see [GET_STARTED.md](docs/GET_STARTED.md#option-a-use-pre-generated-dataset-recommended).
+
+
+
+## :rocket: Getting Started
+To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_STARTED.md).
+
+
+
+## :triangular_ruler: E-Deflare Benchmark
+
+### Data Curation, Training & Validation
+| <img src="docs/figures/framework.png" alt="framework" width="100%">|
+| :-: |
+
+
+### Summary of Datasets
+
+<table class="table is-bordered is-striped is-hoverable" style="width: 100%;">
+  <thead>
+    <tr>
+      <th style="vertical-align: middle; width: 25%;">Dataset</th>
+      <th style="vertical-align: middle; width: 15%;">Type</th>
+      <th style="vertical-align: middle; width: 20%;">Split</th>
+      <th style="vertical-align: middle; width: 15%;"># Samples</th>
+      <th style="vertical-align: middle; width: 25%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- E-Flare-2.7K -->
+    <tr>
+      <td rowspan="2" style="vertical-align: middle;"><b>E-Flare-2.7K</b></td>
+      <td rowspan="2" style="vertical-align: middle; color: #2E86AB;">Simulated</td>
+      <td style="vertical-align: middle;">Train</td>
+      <td style="vertical-align: middle;">2,545</td>
+      <td rowspan="2" style="vertical-align: middle; text-align: left;">Large-scale simulated training set. Each sample is a 20ms voxel grid</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: middle;">Test</td>
+      <td style="vertical-align: middle;">175</td>
+    </tr>
+    <!-- E-Flare-R -->
+    <tr>
+      <td style="vertical-align: middle;"><b>E-Flare-R</b></td>
+      <td style="vertical-align: middle; color: #A23B72;">Real-World</td>
+      <td style="vertical-align: middle;">Test</td>
+      <td style="vertical-align: middle;">150</td>
+      <td style="vertical-align: middle; text-align: left;">Real-world paired test set for sim-to-real evaluation</td>
+    </tr>
+    <!-- DSEC-Flare -->
+    <tr>
+      <td style="vertical-align: middle;"><b>DSEC-Flare</b></td>
+      <td style="vertical-align: middle; color: #A23B72;">Real-World</td>
+      <td style="vertical-align: middle;">—</td>
+      <td style="vertical-align: middle;">—</td>
+      <td style="vertical-align: middle; text-align: left;">Curated sequences from DSEC showcasing lens flare in public datasets</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+### Experiments on E-Flare-2.7K
+<table>
+<thead>
+  <tr>
+    <th style="vertical-align: middle;">Method</th>
+    <th style="vertical-align: middle;">Chamfer↓</th>
+    <th style="vertical-align: middle;">Gaussian↓</th>
+    <th style="vertical-align: middle;">MSE↓</th>
+    <th style="vertical-align: middle;">PMSE 2↓</th>
+    <th style="vertical-align: middle;">PMSE 4↓</th>
+    <th style="vertical-align: middle;">R-F1↑</th>
+    <th style="vertical-align: middle;">T-F1↑</th>
+    <th style="vertical-align: middle;">TP-F1↑</th>
+  </tr>
+</thead>
+<tbody>
+  <tr style="background-color: #f5f5f5;">
+    <td><span style="color: gray;">● Raw Input</span></td>
+    <td style="color: gray;">1.3555</td>
+    <td style="color: gray;">0.5222</td>
+    <td style="color: gray;">0.8315</td>
+    <td style="color: gray;">0.3666</td>
+    <td style="color: gray;">0.3430</td>
+    <td style="color: gray;">0.5138</td>
+    <td style="color: gray;">0.6303</td>
+    <td style="color: gray;">0.6939</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● EFR</span></td>
+    <td>1.3237</td>
+    <td>0.5439</td>
+    <td>0.5357</td>
+    <td>0.2019</td>
+    <td>0.1755</td>
+    <td>0.1616</td>
+    <td>0.3572</td>
+    <td>0.4811</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● PFD-A</span></td>
+    <td>1.3958</td>
+    <td>0.5397</td>
+    <td>0.8357</td>
+    <td>0.3637</td>
+    <td>0.3392</td>
+    <td>0.4383</td>
+    <td style="background-color: #fae0e3;">0.5496</td>
+    <td>0.6125</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● PFD-B</span></td>
+    <td style="background-color: #fae0e3;">1.2496</td>
+    <td style="background-color: #fae0e3;">0.4613</td>
+    <td style="background-color: #fae0e3;">0.2851</td>
+    <td>0.1159</td>
+    <td>0.1021</td>
+    <td style="background-color: #fae0e3;">0.4460</td>
+    <td>0.5155</td>
+    <td>0.5727</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● Voxel Transform</span></td>
+    <td>1.2923</td>
+    <td>0.5576</td>
+    <td>0.3495</td>
+    <td style="background-color: #fae0e3;">0.1037</td>
+    <td style="background-color: #fae0e3;">0.0829</td>
+    <td>0.2177</td>
+    <td>0.5444</td>
+    <td style="background-color: #fae0e3;">0.6318</td>
+  </tr>
+  <tr style="border-top: 2px solid #333;">
+    <td><b><span style="color: #00B48B;">● E-DeflareNet (Ours)</span></b></td>
+    <td style="background-color: #e5f0e6;"><b>0.4477</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.2646</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.1269</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.0487</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.0435</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.7071</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.7627</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.7794</b></td>
+  </tr>
+  <tr style="background-color: #f9f9f9;">
+    <td><i>Improvement (%)</i></td>
+    <td><i>64.2%↑</i></td>
+    <td><i>42.6%↑</i></td>
+    <td><i>55.5%↑</i></td>
+    <td><i>53.0%↑</i></td>
+    <td><i>47.5%↑</i></td>
+    <td><i>58.5%↑</i></td>
+    <td><i>38.8%↑</i></td>
+    <td><i>23.4%↑</i></td>
+  </tr>
+</tbody>
+</table>
+
+
+### Qualitative Results on E-Flare-2.7K
+| <img src="docs/figures/e-flare2.7k.png" alt="e-flare2.7k" width="100%">|
+| :-: |
+
+
+### Experiments on E-Flare-R
+<table>
+<thead>
+  <tr>
+    <th style="vertical-align: middle;">Method</th>
+    <th style="vertical-align: middle;">Chamfer↓</th>
+    <th style="vertical-align: middle;">Gaussian↓</th>
+    <th style="vertical-align: middle;">MSE↓</th>
+    <th style="vertical-align: middle;">PMSE 2↓</th>
+    <th style="vertical-align: middle;">PMSE 4↓</th>
+    <th style="vertical-align: middle;">R-F1↑</th>
+    <th style="vertical-align: middle;">T-F1↑</th>
+    <th style="vertical-align: middle;">TP-F1↑</th>
+  </tr>
+</thead>
+<tbody>
+  <tr style="background-color: #f5f5f5;">
+    <td><span style="color: gray;">● Raw Input</span></td>
+    <td style="color: gray;">1.7855</td>
+    <td style="color: gray;">0.7170</td>
+    <td style="color: gray;">0.8158</td>
+    <td style="color: gray;">0.3431</td>
+    <td style="color: gray;">0.3266</td>
+    <td style="color: gray;">0.2299</td>
+    <td style="color: gray;">0.2915</td>
+    <td style="color: gray;">0.3093</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● EFR</span></td>
+    <td>1.8191</td>
+    <td>0.7266</td>
+    <td>0.3388</td>
+    <td>0.1403</td>
+    <td>0.1330</td>
+    <td>0.0839</td>
+    <td>0.1807</td>
+    <td>0.2372</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● PFD-A</span></td>
+    <td style="background-color: #fae0e3;">1.7642</td>
+    <td style="background-color: #fae0e3;">0.7067</td>
+    <td>0.7924</td>
+    <td>0.3341</td>
+    <td>0.3182</td>
+    <td style="background-color: #fae0e3;">0.2386</td>
+    <td style="background-color: #fae0e3;">0.3081</td>
+    <td style="background-color: #fae0e3;">0.3283</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● PFD-B</span></td>
+    <td>2.0838</td>
+    <td>0.8504</td>
+    <td style="background-color: #fae0e3;">0.2759</td>
+    <td>0.1121</td>
+    <td>0.1049</td>
+    <td>0.0300</td>
+    <td>0.0717</td>
+    <td>0.0880</td>
+  </tr>
+  <tr>
+    <td><span style="color: #EF634B;">● Voxel Transform</span></td>
+    <td>1.9535</td>
+    <td>0.8167</td>
+    <td>0.3140</td>
+    <td style="background-color: #fae0e3;">0.0964</td>
+    <td style="background-color: #fae0e3;">0.0836</td>
+    <td>0.1036</td>
+    <td>0.2729</td>
+    <td>0.3255</td>
+  </tr>
+  <tr style="border-top: 2px solid #333;">
+    <td><b><span style="color: #00B48B;">● E-DeflareNet (Ours)</span></b></td>
+    <td style="background-color: #e5f0e6;"><b>1.1368</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.4651</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.1741</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.0690</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.0644</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.3498</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.3386</b></td>
+    <td style="background-color: #e5f0e6;"><b>0.3011</b></td>
+  </tr>
+  <tr style="background-color: #f9f9f9;">
+    <td><i>Improvement (%)</i></td>
+    <td><i>35.6%↑</i></td>
+    <td><i>34.2%↑</i></td>
+    <td><i>36.9%↑</i></td>
+    <td><i>28.4%↑</i></td>
+    <td><i>23.0%↑</i></td>
+    <td><i>46.6%↑</i></td>
+    <td><i>9.9%↑</i></td>
+    <td><i>-8.3%↓</i></td>
+  </tr>
+</tbody>
+</table>
+
+
+### Qualitative Results on E-Flare-R
+| <img src="docs/figures/e-flare-r.png" alt="e-flare-r" width="100%">|
+| :-: |
+
+
+
+## :memo: TODO List
+- [x] Initial release. 🚀
+- [x] Release of the `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets.
+- [x] Release of the E-DeflareNet pretrained model weights.
+- [ ] . . .
+
+
+
+## License
+This work is under the <a rel="license" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a>, while some specific implementations in this codebase might be under other licenses. Kindly refer to [LICENSE.md](docs/LICENSE.md) for a more careful check, if you are using our code for commercial matters.
+
+
+
+## Acknowledgements
+This work is under the programme [DesCartes](http://descartes.cnrsatcreate.cnrs.fr/) and is supported by the National Research Foundation, Prime Minister's Office, Singapore, under its Campus for Research Excellence and Technological Enterprise (CREATE) programme. This work is also supported by the [Apple Scholars in AI/ML Ph.D. Fellowship](https://machinelearning.apple.com/updates/apple-scholars-aiml-2025) program.
+
+
+| <img src="docs/figures/affiliations.png" alt="affiliations" width="100%">|
+| :-: |

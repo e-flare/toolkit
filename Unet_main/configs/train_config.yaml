@@ -1,0 +1,121 @@
+# Training Configuration for Event-Voxel DEFLARE with Custom Training System
+# Task: Remove flare from background_with_flare_events → background_with_light_events
+
+# Data loading configuration for custom training system
+loaders:
+  # Dataset paths (update these to match your data location)
+  train_noisy_dir: "data/background_with_flare_events"
+  train_clean_dir: "data/background_with_light_events"
+  val_noisy_dir: "data/background_with_flare_events_test"
+  val_clean_dir: "data/background_with_light_events_test"
+  
+  # DataLoader parameters
+  batch_size: 1           # Single sample batch to avoid GPU memory overflow
+  num_workers: 0          # Single thread to avoid concurrent issues
+  
+  # Event-Voxel conversion parameters  
+  sensor_size: [480, 640]         # DSEC sensor resolution
+  segment_duration_us: 20000      # 20ms per segment
+  num_bins: 8                     # 8 temporal bins per segment
+  num_segments: 5                 # 5 segments per 100ms file
+  
+  # Data transforms (handled by EventVoxelDataset internally)
+  transform: null
+
+# Dataset-specific configuration (HDF5Dataset parameters)
+# Note: Our test data is already in (8, 480, 640) format - no additional processing needed
+
+# True residual learning model configuration - 2025-01-03 update
+model:
+  name: TrueResidualUNet3D  # True residual learning architecture
+  backbone: ResidualUNet3D  # Backbone network type
+  
+  # Input/output channels
+  in_channels: 1            # Single channel input (voxel grid)
+  out_channels: 1           # Single channel output (deflared voxel)
+  
+  # Architecture parameters (all passed to TrueResidualUNet3D)
+  f_maps: [32, 64, 128, 256]    # Current config: 4 levels, ~2.5M parameters
+  num_levels: 4                 # Max depth 4 levels (5 levels causes size bug)
+
+  # Server version (for large GPU memory)
+  # f_maps: [64, 128, 256, 512]  # Server config: 4 levels, ~28M parameters
+  # num_levels: 4                # Fixed 4 levels to avoid size bug at level 5
+
+  layer_order: gcr          # Group normalization + Conv + ReLU
+  num_groups: 8             # GroupNorm group count (important parameter!)
+  conv_padding: 1           # Convolution padding
+  dropout_prob: 0.1         # Dropout probability
+
+  # Note: final_sigmoid is hardcoded as False in TrueResidualUNet3D, then replaced with Identity()
+
+  # Key advantages of true residual learning:
+  # 1. Zero initialization: perfect identity mapping initially (output = input + 0)
+  # 2. Background preservation: 100% background retention, focuses on flare removal
+  # 3. Stable training: starts from ideal state, smooth gradient flow
+  # 4. Numerical domain: supports real-valued output (-∞, +∞), no activation constraints
+
+# Loss function configuration
+loss:
+  name: MSELoss             # Mean Squared Error for regression (deflare)
+  # Alternative losses for experimentation:
+  # name: L1Loss            # Mean Absolute Error  
+  # name: SmoothL1Loss      # Less sensitive to outliers
+
+# Optimizer configuration
+optimizer:
+  name: Adam
+  learning_rate: 0.0002     # Learning rate
+  weight_decay: 0.00001     # L2 regularization
+
+# Learning rate scheduler
+lr_scheduler:
+  name: MultiStepLR
+  milestones: [10, 20, 30]  # Epochs to reduce LR
+  gamma: 0.2                # LR reduction factor
+
+# Training process configuration
+trainer:
+  # Checkpointing
+  checkpoint_dir: checkpoints/event_voxel_deflare_simple
+  # resume: null              # Path to resume from checkpoint (null = start from scratch)
+  # resume: checkpoints/event_voxel_deflare/checkpoint_epoch_0027_iter_077500.pth
+  resume: checkpoints/event_voxel_deflare_simple/checkpoint_epoch_0025_iter_068750.pth
+
+  # Training duration
+  max_num_epochs: 50        # Normal training for 50 epochs
+  max_num_iterations: null  # No iteration limit, train by epochs
+
+  # Validation and logging
+  validate_after_iters: 1250  # Validate every 1250 iterations for fast feedback
+  log_after_iters: 250       # Log to tensorboard every 250 iterations
+  max_num_workers: 0         # Single thread to avoid concurrent issues
+  
+  # Early stopping (optional)
+  # eval_score_higher_is_better: false  # For loss-based metrics (MSE, L1)
+
+# Evaluation metrics during training  
+eval_metric:
+  name: MSE                 # Use MSE instead of MeanSquaredError
+  # Additional metrics can be added:
+  # - name: PSNR            # Peak Signal-to-Noise Ratio
+
+# Logging and monitoring
+logger:
+  name: TensorBoardLogger
+  log_dir: logs/event_voxel_denoising
+
+# Device configuration
+device: cuda               # GPU required, CPU mode not supported
+
+# Random seed for reproducibility  
+manual_seed: 42
+
+# Data format specifications (for pytorch-3dunet compatibility)
+# Input format: (batch_size, channels, depth, height, width)
+# Our format: (batch_size, 1, 8, 480, 640) 
+#   - batch_size: Variable
+#   - channels: 1 (single voxel channel)  
+#   - depth: 8 (temporal bins for 20ms segment)
+#   - height: 480 (sensor height)
+#   - width: 640 (sensor width)

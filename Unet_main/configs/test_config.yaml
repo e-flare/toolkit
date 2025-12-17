@@ -1,0 +1,85 @@
+# Test/Evaluation Configuration for Event-Voxel Deflare
+# Used for evaluating trained models on test datasets
+
+# Data loading configuration for test (match train config format)
+loaders:
+  # Test dataset paths (update these to match your data location)
+  val_noisy_dir: "data/background_with_flare_events_test"
+  val_clean_dir: "data/background_with_light_events_test"
+  
+  # DataLoader parameters
+  batch_size: 1           # Process each sample individually
+  num_workers: 0          # Single thread to avoid concurrent issues
+  
+  # Event-Voxel conversion parameters (MUST match training)
+  sensor_size: [480, 640]         # DSEC sensor resolution
+  segment_duration_us: 20000      # 20ms per segment
+  num_bins: 8                     # 8 temporal bins per segment
+  num_segments: 5                 # 5 segments per 100ms file
+  
+  # Data transforms
+  transform: null
+
+# Remove duplicate dataset section (already in loaders)
+
+# Model configuration (MUST match training model exactly)
+model:
+  name: TrueResidualUNet3D  # Match training: true residual learning
+  backbone: ResidualUNet3D  # Backbone network type
+  # Model architecture (MUST match training config exactly)
+  in_channels: 1
+  out_channels: 1
+  f_maps: [32, 64, 128, 256]  # Match training: 2.5M parameters
+  layer_order: gcr
+  num_groups: 8             # Match training: standard GroupNorm grouping
+  num_levels: 4             # Match training: 4 levels (5 levels has size bug)
+  conv_padding: 1           # Match training
+  dropout_prob: 0.1         # Match training
+  
+  # Path to trained model checkpoint (2250 iteration - latest available)
+  path: checkpoints/event_voxel_deflare/checkpoint_epoch_0027_iter_077500.pth
+
+# Predictor configuration
+predictor:
+  name: StandardPredictor
+  
+  # Output configuration
+  output_dir: test_results/event_voxel_denoising
+  
+  # Save predictions
+  save_segmentation: false    # For regression, we save raw predictions
+  
+  # Prediction parameters
+  patch: null                 # Use full volume (no patching for our small 8x480x640 volumes)
+  
+  # Post-processing
+  keep_predictions: true      # Keep prediction files for analysis
+
+# Evaluation metrics
+eval_metric:
+  # Primary metrics for denoising evaluation
+  - name: MeanSquaredError    # MSE between predicted and ground truth
+  - name: PSNR               # Peak Signal-to-Noise Ratio  
+  - name: MeanAbsoluteError   # L1 error
+  
+  # Optional advanced metrics
+  # - name: SSIM              # Structural Similarity Index (if available)
+
+# Device configuration
+device: cuda                 # Use GPU for faster inference
+
+# Logging configuration
+logger:
+  name: TensorBoardLogger
+  log_dir: logs/test_event_voxel_denoising
+
+# Optional: Additional test settings
+inference:
+  # Test-time augmentation (usually disabled)
+  test_time_augmentation: false
+  
+  # Batch processing for efficiency
+  mirror: false
+  
+  # Output format
+  output_format: pt          # Save predictions as PyTorch tensors
