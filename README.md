@@ -59,7 +59,7 @@ If you find this work helpful for your research, please kindly consider citing o
 @article{han2025e-deflare,
     title   = {Learning to Remove Lens Flare in Event Camera},
     author  = {Haiqian Han and Lingdong Kong and Jianing Li and Ao Liang and Chengtao Zhu and Jiacheng Lyu and Lai Xing Ng and Xiangyang Ji and Wei Tsang Ooi and Benoit R. Cottereau},
-    journal = {arXiv preprint arXiv:2512.09016}
+    journal = {arXiv preprint arXiv:2512.09016},
     year    = {2025}
 }
 ```
