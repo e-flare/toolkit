@@ -372,6 +372,7 @@ To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_
 </tbody>
 </table>
 
+* The released model was trained on 510 pairs (2,550 samples). Three pairs were later lost to a storage failure, so the public training set contains 507 pairs (2,535 samples).
 
 ### Qualitative Results on E-Flare-R
 | <img src="docs/figures/e-flare-r.png" alt="e-flare-r" width="100%">|
