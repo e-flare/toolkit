@@ -66,7 +66,7 @@ If you find this work helpful for your research, please kindly consider citing o
 
 
 ## Updates
-
+- **[11/2026]** - Dataset fix: corrected sample counts, removed damaged/duplicate files, and released the exact file lists used in the paper. 
 - **[12/2025]** - E-DeflareNet pretrained model weights are now available for download. :weight_lifting:
 - **[12/2025]** - The `E-Flare-2.7K`, `E-Flare-R`, and `DSEC-Flare` datasets are ready for download at [HuggingFace Dataset](https://huggingface.co/datasets/E-Deflare/data).
 - **[12/2025]** - The [Project Page](https://e-flare.github.io) is online. :rocket:
@@ -146,7 +146,7 @@ To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_
       <td rowspan="2" style="vertical-align: middle;"><b>E-Flare-2.7K</b></td>
       <td rowspan="2" style="vertical-align: middle; color: #2E86AB;">Simulated</td>
       <td style="vertical-align: middle;">Train</td>
-      <td style="vertical-align: middle;">2,545</td>
+      <td style="vertical-align: middle;">2,550</td>
       <td rowspan="2" style="vertical-align: middle; text-align: left;">Large-scale simulated training set. Each sample is a 20ms voxel grid</td>
     </tr>
     <tr>
@@ -158,7 +158,7 @@ To learn more usage of this codebase, kindly refer to [GET_STARTED.md](docs/GET_
       <td style="vertical-align: middle;"><b>E-Flare-R</b></td>
       <td style="vertical-align: middle; color: #A23B72;">Real-World</td>
       <td style="vertical-align: middle;">Test</td>
-      <td style="vertical-align: middle;">150</td>
+      <td style="vertical-align: middle;">140</td>
       <td style="vertical-align: middle; text-align: left;">Real-world paired test set for sim-to-real evaluation</td>
     </tr>
     <!-- DSEC-Flare -->
